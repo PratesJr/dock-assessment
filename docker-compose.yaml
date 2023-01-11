@@ -1,0 +1,27 @@
+version: '3'
+services:
+  banking_db:
+    image: postgres:14.1-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgrespostgres
+      - POSTGRES_DATABASE=postgres
+    ports:
+      - '5433:5432'
+    volumes:
+      - database_dev_pg:/var/lib/postgresql/data
+  banking_cache:
+    image: redis
+    command: redis-server --requirepass 'redisPWD' --appendonly yes
+    hostname: '0'
+    ports:
+      - '6378:6379'
+
+  web:
+    build: .
+    ports:
+      - "3333:3333"
+volumes:
+  database_dev_pg:
+    driver: local
