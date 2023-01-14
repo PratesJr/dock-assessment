@@ -23,6 +23,12 @@
       ],
       "@app/database/*": [
         "libs/database/src/*"
+      ],
+      "@app/custom-decorator": [
+        "libs/custom-decorator/src"
+      ],
+      "@app/custom-decorator/*": [
+        "libs/custom-decorator/src/*"
       ]
     }
   }

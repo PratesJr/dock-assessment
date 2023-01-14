@@ -8,8 +8,8 @@ import {
 import { DateTime } from 'luxon';
 
 @Table({
-  modelName: 'user',
-  tableName: 'user',
+  modelName: 'portador',
+  tableName: 'portadores',
   underscored: true,
   timestamps: true,
   version: false,
@@ -34,35 +34,14 @@ export class Portador extends Model {
   @Column({
     type: DataType.DATE,
     allowNull: false,
-    get() {
-      return this.getDataValue('createdAt')
-        ? DateTime.fromSQL(this.getDataValue('createdAt'))
-          .setZone('America/Sao_Paulo')
-          .toFormat('YYYY-MM-DD HH:mm:ss')
-        : null;
-    },
+
   })
   createdAt: Date;
 
   @Column({
     type: DataType.DATE,
     allowNull: false,
-    get() {
-      return this.getDataValue('createdAt')
-        ? DateTime.fromSQL(this.getDataValue('createdAt'))
-          .setZone('America/Sao_Paulo')
-          .toFormat('YYYY-MM-DD HH:mm:ss')
-        : null;
-    },
   })
   updatedAt: Date;
 
-
-  @AfterCreate({ name: 'clearContent' })
-  static clearContent(instance: Portador) {
-    delete instance.createdAt;
-    delete instance.updatedAt;
-    delete instance.deletedAt;
-
-  }
 }

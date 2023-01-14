@@ -1,4 +1,5 @@
 import { Body, Controller, Delete, Get, Inject, Param, Post } from '@nestjs/common';
+import { PortadorDto } from 'src/types/portador.dto';
 import { PortadorService } from './portador.interface';
 
 @Controller('portador')
@@ -10,8 +11,13 @@ export class PortadorController {
   ) { }
 
   @Post()
-  async addPortador(@Body() body: any): Promise<any> {
-    return this._service.create(body).then((res) => res);
+  async addPortador(@Body() body: PortadorDto): Promise<PortadorDto> {
+    return this._service.create(body).then(({ document, fullName }) => {
+      return {
+        document,
+        fullName
+      };
+    });
   }
   @Get(':document')
   async getPortador(@Param('document') document: string): Promise<any> {
@@ -19,7 +25,9 @@ export class PortadorController {
       where: {
         document
       }
-    }).then((response) => response);
+    }).then((response) => response).catch((err) => {
+      throw err;
+    });
   }
 
   @Delete(':document')

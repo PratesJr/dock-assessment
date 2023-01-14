@@ -11,6 +11,15 @@
       "compilerOptions": {
         "tsConfigPath": "libs/database/tsconfig.lib.json"
       }
+    },
+    "custom-decorator": {
+      "type": "library",
+      "root": "libs/custom-decorator",
+      "entryFile": "index",
+      "sourceRoot": "libs/custom-decorator/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/custom-decorator/tsconfig.lib.json"
+      }
     }
   },
   "compilerOptions": {
