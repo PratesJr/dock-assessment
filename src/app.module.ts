@@ -1,5 +1,7 @@
 import { DatabaseModule } from '@app/database';
-import { Module } from '@nestjs/common';
+import { HttpLogMiddleware } from '@app/exception-handler';
+
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { PortadorModule } from './portador/portador.module';
 
 
@@ -8,4 +10,8 @@ import { PortadorModule } from './portador/portador.module';
   controllers: [],
   providers: [],
 })
-export class AppModule { }
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer): void {
+    consumer.apply(HttpLogMiddleware).forRoutes('*');
+  }
+}

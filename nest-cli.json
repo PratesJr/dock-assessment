@@ -20,6 +20,15 @@
       "compilerOptions": {
         "tsConfigPath": "libs/custom-decorator/tsconfig.lib.json"
       }
+    },
+    "exception-handler": {
+      "type": "library",
+      "root": "libs/exception-handler",
+      "entryFile": "index",
+      "sourceRoot": "libs/exception-handler/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/exception-handler/tsconfig.lib.json"
+      }
     }
   },
   "compilerOptions": {

@@ -86,7 +86,8 @@
     ],
     "moduleNameMapper": {
       "^@app/database(|/.*)$": "<rootDir>/libs/database/src/$1",
-      "^@app/custom-decorator(|/.*)$": "<rootDir>/libs/custom-decorator/src/$1"
+      "^@app/custom-decorator(|/.*)$": "<rootDir>/libs/custom-decorator/src/$1",
+      "^@app/exception-handler(|/.*)$": "<rootDir>/libs/exception-handler/src/$1"
     }
   }
 }
