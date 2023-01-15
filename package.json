@@ -27,6 +27,9 @@
     "@nestjs/common": "^9.0.0",
     "@nestjs/core": "^9.0.0",
     "@nestjs/platform-express": "^9.0.0",
+    "@types/validator": "^13.7.10",
+    "class-validator": "^0.14.0",
+    "cpf-cnpj-validator": "^1.0.3",
     "dotenv": "^16.0.3",
     "luxon": "^3.2.1",
     "pg": "^8.8.0",
@@ -82,7 +85,8 @@
       "<rootDir>/libs/"
     ],
     "moduleNameMapper": {
-      "^@app/database(|/.*)$": "<rootDir>/libs/database/src/$1"
+      "^@app/database(|/.*)$": "<rootDir>/libs/database/src/$1",
+      "^@app/custom-decorator(|/.*)$": "<rootDir>/libs/custom-decorator/src/$1"
     }
   }
 }
