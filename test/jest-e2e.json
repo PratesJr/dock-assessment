@@ -12,6 +12,8 @@
   },
   "moduleNameMapper": {
     "@app/database/(.*)": "<rootDir>/../libs/database/src/$1",
-    "@app/database": "<rootDir>/../libs/database/src"
+    "@app/database": "<rootDir>/../libs/database/src",
+    "@app/exception-handler/(.*)": "<rootDir>/../libs/exception-handler/src/$1",
+    "@app/exception-handler": "<rootDir>/../libs/exception-handler/src"
   }
 }

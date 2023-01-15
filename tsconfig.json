@@ -29,6 +29,12 @@
       ],
       "@app/custom-decorator/*": [
         "libs/custom-decorator/src/*"
+      ],
+      "@app/exception-handler": [
+        "libs/exception-handler/src"
+      ],
+      "@app/exception-handler/*": [
+        "libs/exception-handler/src/*"
       ]
     }
   }
