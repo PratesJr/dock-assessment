@@ -1,4 +1,5 @@
-import { Body, Controller, Delete, Get, Inject, Param, Post } from '@nestjs/common';
+import { NotFoundInterceptor } from '@app/exception-handler';
+import { Body, Controller, Delete, Get, Inject, Param, Post, UseInterceptors } from '@nestjs/common';
 import { PortadorDto } from 'src/types/portador.dto';
 import { PortadorService } from './portador.interface';
 
@@ -20,6 +21,7 @@ export class PortadorController {
     });
   }
   @Get(':document')
+  @UseInterceptors(NotFoundInterceptor)
   async getPortador(@Param('document') document: string): Promise<any> {
     return this._service.findByDocument({
       where: {
