@@ -1,5 +1,7 @@
 import { NotFoundInterceptor } from '@app/exception-handler';
 import { Body, Controller, Delete, Get, Inject, Param, Post, UseInterceptors } from '@nestjs/common';
+import { ChangeBalanceDto } from 'src/types/balance.dto';
+import { ContaDto } from 'src/types/conta.dto';
 import { ContaService } from './conta.interface';
 
 @Controller('conta')
@@ -11,12 +13,12 @@ export class ContaController {
   ) { }
 
   @Post()
-  async create(@Body() body: any): Promise<any> {
+  async create(@Body() body: ContaDto): Promise<any> {
     return this._contaService.create(body).then(res => res);
   }
 
   @Post('operation')
-  async changeBalance(@Body() body: any): Promise<any> {
+  async changeBalance(@Body() body: ChangeBalanceDto): Promise<any> {
     return this._contaService.manageOperations(body).then(res => res);
   }
 
