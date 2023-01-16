@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
+import { ContaDto } from '@app/types/dto';
 import { FindOptions } from 'sequelize';
-import { ContaDto } from 'src/types/conta.dto';
+
 
 export interface ContaService {
   create(data: ContaDto): Promise<any>

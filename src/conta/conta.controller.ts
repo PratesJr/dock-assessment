@@ -1,7 +1,7 @@
 import { NotFoundInterceptor } from '@app/exception-handler';
+import { ChangeBalanceDto, ContaDto } from '@app/types/dto';
 import { Body, Controller, Delete, Get, Inject, Param, Post, UseInterceptors } from '@nestjs/common';
-import { ChangeBalanceDto } from 'src/types/balance.dto';
-import { ContaDto } from 'src/types/conta.dto';
+
 import { ContaService } from './conta.interface';
 
 @Controller('conta')

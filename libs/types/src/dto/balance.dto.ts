@@ -4,7 +4,8 @@ import {
   IsNumber,
   IsNumberString
 } from 'class-validator';
-import { OperationType } from './operation.enum';
+import { OperationType } from '../enum/operation.enum';
+
 
 export class ChangeBalanceDto {
   @IsNotEmpty()

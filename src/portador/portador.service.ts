@@ -1,10 +1,11 @@
 import { Portador } from '@app/database';
 import { Inject, Injectable } from '@nestjs/common';
 import { FindOptions } from 'sequelize';
-import { PortadorDto } from 'src/types/portador.dto';
+
 import { PortadorService } from './portador.interface';
 import { cpf, cnpj } from 'cpf-cnpj-validator';
 import { BadRequestException } from '@nestjs/common';
+import { PortadorDto } from '@app/types/dto';
 @Injectable()
 export class PortadorServiceImpl implements PortadorService {
   constructor(

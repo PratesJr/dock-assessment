@@ -3,7 +3,8 @@ import { Inject, Injectable } from '@nestjs/common';
 import { FindOptions } from 'sequelize';
 import { ContaService } from './conta.interface';
 import * as random from 'randomstring';
-import { ContaDto } from 'src/types/conta.dto';
+import { ContaDto } from '@app/types/dto';
+
 
 @Injectable()
 export class ContaServiceImpl implements ContaService {

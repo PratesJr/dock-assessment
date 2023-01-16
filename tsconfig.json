@@ -35,6 +35,12 @@
       ],
       "@app/exception-handler/*": [
         "libs/exception-handler/src/*"
+      ],
+      "@app/types": [
+        "libs/types/src"
+      ],
+      "@app/types/*": [
+        "libs/types/src/*"
       ]
     }
   }

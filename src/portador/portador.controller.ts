@@ -1,6 +1,7 @@
 import { NotFoundInterceptor } from '@app/exception-handler';
+import { PortadorDto } from '@app/types/dto';
 import { Body, Controller, Delete, Get, Inject, Param, Post, UseInterceptors } from '@nestjs/common';
-import { PortadorDto } from 'src/types/portador.dto';
+
 import { PortadorService } from './portador.interface';
 
 @Controller('portador')
