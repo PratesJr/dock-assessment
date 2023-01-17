@@ -63,26 +63,12 @@ export class Conta extends Model {
   @Column({
     type: DataType.DATE,
     allowNull: false,
-    get() {
-      return this.getDataValue('createdAt')
-        ? DateTime.fromSQL(this.getDataValue('createdAt'))
-          .setZone('America/Sao_Paulo')
-          .toFormat('YYYY-MM-DD HH:mm:ss')
-        : null;
-    },
   })
   createdAt: Date;
 
   @Column({
     type: DataType.DATE,
     allowNull: false,
-    get() {
-      return this.getDataValue('createdAt')
-        ? DateTime.fromSQL(this.getDataValue('createdAt'))
-          .setZone('America/Sao_Paulo')
-          .toFormat('YYYY-MM-DD HH:mm:ss')
-        : null;
-    },
   })
   updatedAt: Date;
 
