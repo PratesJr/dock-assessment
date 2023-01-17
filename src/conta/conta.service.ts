@@ -2,7 +2,8 @@ import { Conta } from '@app/database';
 import { Inject, Injectable } from '@nestjs/common';
 import { FindOptions } from 'sequelize';
 import { ContaService } from './conta.interface';
-import * as random from 'randomstring';
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const random = require('randomstring');
 import { ContaDto } from '@app/types/dto';
 
 
@@ -15,25 +16,39 @@ export class ContaServiceImpl implements ContaService {
     // eslint-disable-next-line no-empty-function, @typescript-eslint/no-empty-function
   ) { }
 
-  create(data: ContaDto): Promise<any> {
-    return this._conta.create({
-      portadorId: data.portadorDocument,
-      agencia: '00001',
-      conta: random.generate({
-        length: 6,
-        charset: 'numeric'
-      }),
-      saldo: 0
+  async create(data: ContaDto): Promise<any> {
+    return this._conta.findOne({
+      where: {
+        portadorId: data.portadorDocument,
+        // eslint-disable-next-line camelcase
+        deleted_at: { $not: null }
+      },
+      paranoid: false
+    }).then(res => {
+      if (res) {
+        res.restore();
+        res.saldo = 0;
+        return res.save();
+      }
+      return this._conta.create({
+        portadorId: data.portadorDocument,
+        agencia: '00001',
+        conta: random.generate({
+          length: 6,
+          charset: 'numeric'
+        }),
+        saldo: 0
+      });
     });
   }
 
   close(query: FindOptions): Promise<any> {
     return this._conta.destroy(query);
   }
-  getInfo(query: FindOptions): Promise<any> {
+  async getInfo(query: FindOptions): Promise<any> {
     return this._conta.findOne(query);
   }
-  withdraw(data: Conta, amount: number): Promise<any> {
+  async withdraw(data: Conta, amount: number): Promise<any> {
     return data.update({
       saldo: data.saldo - amount
     }).then((conta: Conta) => {
@@ -41,24 +56,25 @@ export class ContaServiceImpl implements ContaService {
     });
 
   }
-  deposit(data: any, amount: number): Promise<any> {
+  async deposit(data: Conta, amount: number): Promise<any> {
     return data.update({
-      saldo: data.saldo + amount
+      saldo: Number(data.saldo) + Number(amount)
     }).then((conta: Conta) => {
       return conta.save();
     });
   }
 
-  manageOperations(): Promise<any> {
+  async manageOperations(conta: Conta, amount: number, operation: string): Promise<any> {
+
     const operations: any = {
-      withdraw: async (body: any) => {
-        return this.withdraw(body, 0);
+      withdraw: async () => {
+        return this.withdraw(conta, amount);
       },
-      deposit: async (body: any) => {
-        return this.deposit(body, 0);
+      deposit: async () => {
+        return this.deposit(conta, amount);
       }
     };
 
-    return operations;
+    return operations[operation](conta);
   }
 }

@@ -12,6 +12,7 @@ module.exports = {
       portador_id: {
         type: Sequelize.STRING,
         allowNull: false,
+        unique: true,
         references: {
           model: {
             tableName: 'portadores',

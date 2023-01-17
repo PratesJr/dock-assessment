@@ -1,4 +1,4 @@
-import { Portador } from '@app/database';
+import { Conta } from '@app/database';
 import { Module } from '@nestjs/common';
 import { ContaController } from './conta.controller';
 import { ContaServiceImpl } from './conta.service';
@@ -10,11 +10,11 @@ import { ContaServiceImpl } from './conta.service';
   controllers: [ContaController],
   providers: [
     { provide: 'ContaService', useClass: ContaServiceImpl },
-    { provide: 'ContaRepository', useValue: Portador }
+    { provide: 'ContaRepository', useValue: Conta }
   ],
   exports: [
     { provide: 'ContaService', useClass: ContaServiceImpl },
-    { provide: 'ContaRepository', useValue: Portador }
+    { provide: 'ContaRepository', useValue: Conta }
   ]
 })
 export class ContaModule { }

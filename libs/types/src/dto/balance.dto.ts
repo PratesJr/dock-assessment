@@ -13,8 +13,8 @@ export class ChangeBalanceDto {
   operation: OperationType;
   @IsNotEmpty()
   @IsNumberString()
-  document: string;
+  conta: string;
   @IsNotEmpty()
   @IsNumber()
-  value: string;
+  value: number;
 }

@@ -1,3 +1,4 @@
+import { Conta } from '@app/database';
 import { NotFoundInterceptor } from '@app/exception-handler';
 import { ChangeBalanceDto, ContaDto } from '@app/types/dto';
 import { Body, Controller, Delete, Get, Inject, Param, Post, UseInterceptors } from '@nestjs/common';
@@ -14,19 +15,32 @@ export class ContaController {
 
   @Post()
   async create(@Body() body: ContaDto): Promise<any> {
-    return this._contaService.create(body).then(res => res);
+
+    return this._contaService.create(body).then(res => {
+      return {
+        conta: res.conta,
+        agencia: res.agencia,
+        saldo: res.saldo
+      };
+    });
   }
 
   @Post('operation')
   async changeBalance(@Body() body: ChangeBalanceDto): Promise<any> {
-    return this._contaService.manageOperations(body).then(res => res);
+    return this._contaService.getInfo({
+      where: {
+        conta: body.conta
+      }
+    }).then((conta: Conta) => {
+      return this._contaService.manageOperations(conta, body.value, body.operation).then(res => res);
+    });
   }
 
   @Delete('close/:document')
   async closeAcount(@Param('document') document: string): Promise<any> {
     return this._contaService.close({
       where: {
-        document
+        portadorId: document
       }
     }).then(res => res);
   }
@@ -36,7 +50,7 @@ export class ContaController {
     return this._contaService.getInfo(
       {
         where: {
-          document
+          portadorId: document
         }
       }
     ).then(res => res);
