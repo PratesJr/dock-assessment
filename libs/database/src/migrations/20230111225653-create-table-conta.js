@@ -12,6 +12,7 @@ module.exports = {
       portador_id: {
         type: Sequelize.STRING,
         allowNull: false,
+        unique: true,
         references: {
           model: {
             tableName: 'portadores',
@@ -31,6 +32,11 @@ module.exports = {
       saldo: {
         type: Sequelize.DECIMAL,
         allowNull: false,
+      },
+      blocked: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        defaulValue: false,
       },
       created_at: {
         type: Sequelize.DATE,

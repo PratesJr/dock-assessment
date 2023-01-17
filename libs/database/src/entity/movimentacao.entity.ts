@@ -8,6 +8,7 @@ import {
 import { DateTime } from 'luxon';
 import { Conta } from './conta.entity';
 import { Portador } from './portador.entity';
+import { OperationType } from '@app/types/enum/operation.enum';
 
 @Table({
   modelName: 'movimentacao',
@@ -49,7 +50,7 @@ export class Movimentacao extends Model {
     allowNull: false,
     type: DataType.STRING,
   })
-  tipo: string;
+  tipo: OperationType;
 
   @Column({
     type: DataType.DATE,

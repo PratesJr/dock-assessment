@@ -21,9 +21,9 @@ import { Portador } from './portador.entity';
 export class Conta extends Model {
   @Column({
     primaryKey: true,
-    type: DataType.INTEGER,
+    type: DataType.UUIDV4,
     allowNull: false,
-    autoIncrement: true
+    defaultValue: DataType.UUIDV4
   })
   id: string;
 
@@ -51,6 +51,14 @@ export class Conta extends Model {
     type: DataType.DECIMAL,
   })
   saldo: number;
+
+  @Column({
+    allowNull: true,
+    type: DataType.BOOLEAN,
+    defaultValue: false
+  })
+  blocked: boolean;
+
 
   @Column({
     type: DataType.DATE,
