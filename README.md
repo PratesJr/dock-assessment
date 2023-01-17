@@ -1,7 +1,7 @@
 
 # Description
 
-This Project is an Api to Dock.tech assessment
+This Project is a NestJs TypeScript boilerplate for all my personal projects.
 
 ## System Requirements
 
@@ -11,19 +11,26 @@ This Project is an Api to Dock.tech assessment
 - _Docker_: version >= 20.10
 - _Docker Compose_: version >= 1.29
 
-## Install and run the app
+## Installation
+
+```bash
+npm install
+```
+
+- Sei que nao é a melhor pratica, mas o .env será versionado para facilitar a execucão e teste
 
 ```bash
 docker-compose up -d
 ```
 
-- The project will run in localhost:3333
-- The swagger specification is available on localhost:3333/docs
+## Running the app
+
+```bash
+
+# watch mode
+$ npm run dev
+
+
+```
 
 ## Stay in touch
-
-- Author - [Marcelo Prates] - mpratesjunior@gmail.com
-
-## License
-
-Nest is [MIT licensed](LICENSE).
