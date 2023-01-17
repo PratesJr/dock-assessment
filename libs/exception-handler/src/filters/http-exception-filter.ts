@@ -11,7 +11,8 @@ const mappedCodes = {
   UNAUTHORIZED: 401,
   FORBIDDEN: 403,
   BAD_REQUEST: 400,
-  SequelizeUniqueConstraintError: 409
+  SequelizeUniqueConstraintError: 409,
+  SequelizeForeignKeyConstraintError: 412
 };
 import { isNil } from 'lodash';
 
@@ -24,8 +25,6 @@ export class HttpExceptionFilter implements ExceptionFilter {
     const { httpAdapter } = this.httpAdapterHost;
     const ctx = host.switchToHttp();
     const httpStatus = this.getCode(exception);
-
-
     if (isNil(httpAdapter)) {
       const response = ctx.getResponse();
 
