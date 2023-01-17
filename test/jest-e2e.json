@@ -16,6 +16,8 @@
     "@app/exception-handler/(.*)": "<rootDir>/../libs/exception-handler/src/$1",
     "@app/exception-handler": "<rootDir>/../libs/exception-handler/src",
     "@app/types/(.*)": "<rootDir>/../libs/types/src/$1",
-    "@app/types": "<rootDir>/../libs/types/src"
+    "@app/types": "<rootDir>/../libs/types/src",
+    "@app/cache/(.*)": "<rootDir>/../libs/cache/src/$1",
+    "@app/cache": "<rootDir>/../libs/cache/src"
   }
 }

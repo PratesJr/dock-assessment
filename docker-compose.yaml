@@ -16,7 +16,7 @@ services:
     command: redis-server --requirepass 'redisPWD' --appendonly yes
     hostname: '0'
     ports:
-      - '6378:6379'
+      - '6378:6378'
 volumes:
   database_dev_pg:
     driver: local

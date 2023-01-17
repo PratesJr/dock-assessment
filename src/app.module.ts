@@ -1,3 +1,4 @@
+import { RedisCacheModule } from '@app/cache';
 import { DatabaseModule } from '@app/database';
 import { HttpLogMiddleware } from '@app/exception-handler';
 
@@ -10,7 +11,13 @@ import { PortadorModule } from './portador/portador.module';
 
 
 @Module({
-  imports: [DatabaseModule, PortadorModule, ContaModule, MovimentacaoModule],
+  imports: [
+    DatabaseModule,
+    PortadorModule,
+    ContaModule,
+    MovimentacaoModule,
+    RedisCacheModule
+  ],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer): void {
