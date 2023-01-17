@@ -1,15 +1,17 @@
 import { Conta } from '@app/database';
 import { NotFoundInterceptor } from '@app/exception-handler';
 import { ChangeBalanceDto, ContaDto } from '@app/types/dto';
-import { Body, Controller, Delete, Get, Inject, Param, Post, UseInterceptors } from '@nestjs/common';
-
+import { Body, Controller, Delete, Get, Inject, Param, Post, Query, UseInterceptors } from '@nestjs/common';
+import { MovimentacaoService } from 'src/movimentacao/movimentacao.interface';
 import { ContaService } from './conta.interface';
 
 @Controller('conta')
 export class ContaController {
   constructor(
     // eslint-disable-next-line no-unused-vars
-    @Inject('ContaService') private _contaService: ContaService
+    @Inject('ContaService') private _contaService: ContaService,
+    // eslint-disable-next-line no-unused-vars
+    @Inject('MovimentacaoService') private _movimentacaoService: MovimentacaoService,
     // eslint-disable-next-line no-empty-function
   ) { }
 
@@ -24,7 +26,26 @@ export class ContaController {
       };
     });
   }
+  @Get('bank-statement')
+  async getStatement(@Query() query: any): Promise<any> {
+    const { period, conta } = query;
 
+    return this._movimentacaoService.getRegisterByPeriod(conta, period).then(res => {
+      return this._contaService.getInfo({
+        where: {
+          conta
+        },
+        attributes: ['saldo']
+
+      }).then(info => {
+        return {
+          saldo: info.saldo,
+          'periodo-extrato': `${period} dias`,
+          extrato: res
+        };
+      });
+    });
+  }
   @Post('operation')
   async changeBalance(@Body() body: ChangeBalanceDto): Promise<any> {
     return this._contaService.getInfo({

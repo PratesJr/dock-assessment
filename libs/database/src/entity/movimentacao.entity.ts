@@ -5,14 +5,14 @@ import {
   DataType,
   ForeignKey,
 } from 'sequelize-typescript';
-import { DateTime } from 'luxon';
+
 import { Conta } from './conta.entity';
 import { Portador } from './portador.entity';
 import { OperationType } from '@app/types/enum/operation.enum';
 
 @Table({
   modelName: 'movimentacao',
-  tableName: 'user',
+  tableName: 'movimentacoes',
   underscored: true,
   timestamps: true,
   version: false,
@@ -55,26 +55,12 @@ export class Movimentacao extends Model {
   @Column({
     type: DataType.DATE,
     allowNull: false,
-    get() {
-      return this.getDataValue('createdAt')
-        ? DateTime.fromSQL(this.getDataValue('createdAt'))
-          .setZone('America/Sao_Paulo')
-          .toFormat('YYYY-MM-DD HH:mm:ss')
-        : null;
-    },
   })
   createdAt: Date;
 
   @Column({
     type: DataType.DATE,
     allowNull: false,
-    get() {
-      return this.getDataValue('createdAt')
-        ? DateTime.fromSQL(this.getDataValue('createdAt'))
-          .setZone('America/Sao_Paulo')
-          .toFormat('YYYY-MM-DD HH:mm:ss')
-        : null;
-    },
   })
   updatedAt: Date;
 

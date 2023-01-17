@@ -6,6 +6,7 @@ import { ContaService } from './conta.interface';
 const random = require('randomstring');
 import { ContaDto } from '@app/types/dto';
 import { PortadorIdDto } from '@app/types/dto/portador-id.dto';
+import { MovimentacaoService } from 'src/movimentacao/movimentacao.interface';
 
 
 @Injectable()
@@ -13,7 +14,9 @@ export class ContaServiceImpl implements ContaService {
 
   constructor(
     // eslint-disable-next-line no-unused-vars
-    @Inject('ContaRepository') private _conta: typeof Conta
+    @Inject('ContaRepository') private _conta: typeof Conta,
+    // eslint-disable-next-line no-unused-vars
+    @Inject('MovimentacaoService') private _movimentacaoService: MovimentacaoService,
     // eslint-disable-next-line no-empty-function, @typescript-eslint/no-empty-function
   ) { }
 
@@ -51,18 +54,36 @@ export class ContaServiceImpl implements ContaService {
     return this._conta.findOne(query);
   }
   async withdraw(data: Conta, amount: number): Promise<any> {
-    return data.saldo >= amount ? data.update({
-      saldo: (Number(data.saldo) - Number(amount)).toString()
-    }).then((conta: Conta) => {
-      return conta.save();
-    }) : data;
+    return this._movimentacaoService.withdrawRules(data.id, amount).then(() => {
+      return data.saldo >= amount ? data.update({
+        saldo: (Number(data.saldo) - Number(amount)).toString()
+      }).then((conta: Conta) => {
+        conta.save();
+        this._movimentacaoService.register({
+          contaId: data.conta,
+          portadorId: data.portadorId,
+          valor: amount,
+          tipo: '-'
+        });
+        return conta;
+      }) : data;
+    });
+
 
   }
   async deposit(data: Conta, amount: number): Promise<any> {
     return data.update({
       saldo: (Number(data.saldo) + Number(amount)).toString()
     }).then((conta: Conta) => {
-      return conta.save();
+
+      conta.save();
+      this._movimentacaoService.register({
+        contaId: data.conta,
+        portadorId: data.portadorId,
+        valor: amount,
+        tipo: '+'
+      });
+      return conta;
     });
   }
   async block({ portadorId }: PortadorIdDto): Promise<void> {
@@ -75,6 +96,7 @@ export class ContaServiceImpl implements ContaService {
       conta.save();
     });
   }
+
 
   manageOperations(conta: Conta, amount: number, operation: string): Promise<any> {
 
