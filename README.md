@@ -1,7 +1,7 @@
 
 # Description
 
-This Project is a NestJs TypeScript boilerplate for all my personal projects.
+Esse projeto é uma api simples que resolve o problema proposto no desafio técnico da Dock
 
 ## System Requirements
 
@@ -33,4 +33,7 @@ $ npm run dev
 
 ```
 
-## Stay in touch
+## Informações
+
+- Inicialmente eu queria dockerizar toda a aplicação e não apenas o banco, mas tive alguns problemas com o fato de ter criado uma lib para desacoplar o database como um módulo, então acabei dockerizando apenas o banco como já é de costume. Pensei em dividir a api em microservices, porém ao analisar melhor, notei que nada iria escalar de forma a  gerar essa necessidade, com isso eu teria um trabalho "desnecessário" e pensando em tempo de implementação e projeto eu entendo que nao é válido. Eu pensei em fazer em JavaScript, mas o TypeScript me da uma tipagem e isso facilita projetos grandes como é o caso dos projetos da Dock, outro ponto foi a escolha do NestJs, pois considero um dos mais completos frameworks.
+- Gosto de ressaltar que tentei seguir um padrão de commits semelhante ao conventional commits e um padrão de branchs tambem.
