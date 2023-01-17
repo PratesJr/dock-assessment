@@ -1,9 +1,18 @@
 import { NotFoundInterceptor } from '@app/exception-handler';
 import { PortadorDto } from '@app/types/dto';
-import { Body, Controller, Delete, Get, Inject, Param, Post, UseInterceptors } from '@nestjs/common';
-
+import { Body, Controller, Get, Inject, Param, Post, UseInterceptors } from '@nestjs/common';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiBody,
+  ApiCreatedResponse,
+  ApiConflictResponse,
+  ApiNotFoundResponse,
+  ApiParam
+} from '@nestjs/swagger';
 import { PortadorService } from './portador.interface';
 
+@ApiTags('Portador')
 @Controller('portador')
 export class PortadorController {
   constructor(
@@ -13,6 +22,14 @@ export class PortadorController {
   ) { }
 
   @Post()
+  @ApiOperation({
+    description: 'Rota que cria um novo portador para possibilitar a criacão de uma nova conta'
+  })
+  @ApiBody({
+    type: PortadorDto
+  })
+  @ApiConflictResponse()
+  @ApiCreatedResponse()
   async addPortador(@Body() body: PortadorDto): Promise<PortadorDto> {
     return this._service.create(body).then(({ document, fullName }) => {
       return {
@@ -22,6 +39,15 @@ export class PortadorController {
     });
   }
   @Get(':document')
+  @ApiOperation({
+    description: 'Rota que busca informacões de um portador'
+  })
+  @ApiParam({
+    type: String,
+    name: 'document',
+    description: 'cpf do portador, precisa ser valido'
+  })
+  @ApiNotFoundResponse()
   @UseInterceptors(NotFoundInterceptor)
   async getPortador(@Param('document') document: string): Promise<any> {
     return this._service.findByDocument({
@@ -33,14 +59,5 @@ export class PortadorController {
     });
   }
 
-  @Delete(':document')
-  async delPortador(@Param('document') document: string): Promise<any> {
-
-    return this._service.delete({
-      where: {
-        document
-      }
-    }).then((res) => res);
-  }
 
 }

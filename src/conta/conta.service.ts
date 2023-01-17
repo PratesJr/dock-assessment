@@ -25,13 +25,12 @@ export class ContaServiceImpl implements ContaService {
       where: {
         portadorId: data.portadorDocument,
         // eslint-disable-next-line camelcase
-        deleted_at: { $not: null }
+        blocked: true
       },
       paranoid: false
     }).then(res => {
       if (res) {
         res.restore();
-        res.saldo = 0;
         return res.save();
       }
       return this._conta.create({

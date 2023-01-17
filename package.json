@@ -27,6 +27,7 @@
     "@nestjs/common": "^9.0.0",
     "@nestjs/core": "^9.0.0",
     "@nestjs/platform-express": "^9.0.0",
+    "@nestjs/swagger": "^6.1.4",
     "@types/validator": "^13.7.10",
     "class-validator": "^0.14.0",
     "cpf-cnpj-validator": "^1.0.3",
