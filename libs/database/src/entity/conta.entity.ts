@@ -51,8 +51,8 @@ export class Conta extends Model {
     type: DataType.DECIMAL,
   })
   saldo: number;
-  @Column({
 
+  @Column({
     allowNull: true,
     type: DataType.BOOLEAN,
     defaultValue: false

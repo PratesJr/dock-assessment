@@ -45,6 +45,10 @@ export class ContaController {
       }
     }).then(res => res);
   }
+  @Post('block/:document')
+  async blockAccount(@Param('document') document: string): Promise<any> {
+    return this._contaService.block({ portadorId: document }).then(res => res);
+  }
   @Get(':document')
   @UseInterceptors(NotFoundInterceptor)
   async getInfo(@Param('document') document: string): Promise<any> {

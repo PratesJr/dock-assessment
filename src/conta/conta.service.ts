@@ -5,6 +5,7 @@ import { ContaService } from './conta.interface';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const random = require('randomstring');
 import { ContaDto } from '@app/types/dto';
+import { PortadorIdDto } from '@app/types/dto/portador-id.dto';
 
 
 @Injectable()
@@ -64,8 +65,18 @@ export class ContaServiceImpl implements ContaService {
       return conta.save();
     });
   }
+  async block({ portadorId }: PortadorIdDto): Promise<void> {
+    return this._conta.findOne({
+      where: {
+        portadorId
+      }
+    }).then(conta => {
+      conta.update({ blocked: true });
+      conta.save();
+    });
+  }
 
-  async manageOperations(conta: Conta, amount: number, operation: string): Promise<any> {
+  manageOperations(conta: Conta, amount: number, operation: string): Promise<any> {
 
     const operations: any = {
       withdraw: async () => {
