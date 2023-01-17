@@ -37,7 +37,8 @@ export class ContaServiceImpl implements ContaService {
           length: 6,
           charset: 'numeric'
         }),
-        saldo: 0
+        saldo: 0,
+
       });
     });
   }
@@ -49,16 +50,16 @@ export class ContaServiceImpl implements ContaService {
     return this._conta.findOne(query);
   }
   async withdraw(data: Conta, amount: number): Promise<any> {
-    return data.update({
-      saldo: data.saldo - amount
+    return data.saldo >= amount ? data.update({
+      saldo: (Number(data.saldo) - Number(amount)).toString()
     }).then((conta: Conta) => {
       return conta.save();
-    });
+    }) : data;
 
   }
   async deposit(data: Conta, amount: number): Promise<any> {
     return data.update({
-      saldo: Number(data.saldo) + Number(amount)
+      saldo: (Number(data.saldo) + Number(amount)).toString()
     }).then((conta: Conta) => {
       return conta.save();
     });
@@ -77,4 +78,6 @@ export class ContaServiceImpl implements ContaService {
 
     return operations[operation](conta);
   }
+
+
 }

@@ -33,6 +33,11 @@ module.exports = {
         type: Sequelize.DECIMAL,
         allowNull: false,
       },
+      blocked: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        defaulValue: false,
+      },
       created_at: {
         type: Sequelize.DATE,
         allowNull: false,

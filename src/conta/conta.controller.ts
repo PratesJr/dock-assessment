@@ -29,7 +29,8 @@ export class ContaController {
   async changeBalance(@Body() body: ChangeBalanceDto): Promise<any> {
     return this._contaService.getInfo({
       where: {
-        conta: body.conta
+        conta: body.conta,
+        blocked: { $not: true }
       }
     }).then((conta: Conta) => {
       return this._contaService.manageOperations(conta, body.value, body.operation).then(res => res);
@@ -50,7 +51,7 @@ export class ContaController {
     return this._contaService.getInfo(
       {
         where: {
-          portadorId: document
+          portadorId: document,
         }
       }
     ).then(res => res);
